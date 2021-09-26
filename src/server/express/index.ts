@@ -1,5 +1,5 @@
 import express from 'express';
-import { BaseMiddlewares, _error } from '../middlewares';
+import { _error, connectMiddlewares } from '../middlewares';
 import { tasks } from '../routes';
 
 import { Middleware } from './types';
@@ -29,7 +29,7 @@ export default class Server {
 
 	static async connect() {
 		try {
-			Server.use(BaseMiddlewares);
+			connectMiddlewares(Server.App);
 			Server.useRouter('/tasks', tasks);
 			Server.use(_error);
 			await Server.listen();
